@@ -22,7 +22,7 @@ class MorphologicalSkeleton(cellprofiler.module.Module):
 
         self.y_name = cellprofiler.setting.ImageNameProvider(
             "Output",
-            "OutputImage"
+            "MorphologicalSkeleton"
         )
 
     def settings(self):
