@@ -45,13 +45,16 @@ class MorphologicalSkeleton(cellprofiler.module.Module):
 
         x = images.get_image(x_name)
 
+        dimensions = x.dimensions
+
         x_data = x.pixel_data
 
         y_data = skimage.morphology.skeletonize(x_data)
 
         y = cellprofiler.image.Image(
             image=y_data,
-            parent_image=x
+            parent_image=x,
+            dimensions=dimensions
         )
 
         images.add(y_name, y)
@@ -60,10 +63,13 @@ class MorphologicalSkeleton(cellprofiler.module.Module):
             workspace.display_data.x_data = x_data
 
             workspace.display_data.y_data = y_data
+            
+            workspace.display_data.dimensions = dimensions
 
     def display(self, workspace, figure):
-        figure.set_grids((1, 2))
+        figure.set_subplots((1, 2))
 
-        figure.gridshow(0, 0, workspace.display_data.x_data)
+        figure.subplot_imshow(0, 0, workspace.display_data.x_data, dimensions=dimensions)
 
-        figure.gridshow(0, 1, workspace.display_data.y_data)
+        figure.subplot_imshow(0, 1, workspace.display_data.y_data, dimensions=dimensions)
+
