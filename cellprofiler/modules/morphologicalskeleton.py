@@ -10,7 +10,7 @@ import cellprofiler.setting
 import skimage.morphology
 
 
-class Erosion(cellprofiler.module.Module):
+class MorphologicalSkeleton(cellprofiler.module.Module):
     category = "Mathematical morphology"
     module_name = "Morphological skeleton"
     variable_revision_number = 1
