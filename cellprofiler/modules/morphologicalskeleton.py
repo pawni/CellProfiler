@@ -1,6 +1,6 @@
 """
 
-Morphological skeleton
+<strong>Morphological skeleton<strong> thins an image into a single-pixel wide skeleton.
 
 """
 
@@ -39,6 +39,7 @@ class MorphologicalSkeleton(cellprofiler.module.Module):
 
     def run(self, workspace):
         x_name = self.x_name.value
+
         y_name = self.y_name.value
 
         images = workspace.image_set
@@ -49,7 +50,7 @@ class MorphologicalSkeleton(cellprofiler.module.Module):
 
         x_data = x.pixel_data
 
-        y_data = skimage.morphology.skeletonize(x_data)
+        y_data = skimage.morphology.skeletonize_3d(x_data)
 
         y = cellprofiler.image.Image(
             image=y_data,
@@ -67,9 +68,22 @@ class MorphologicalSkeleton(cellprofiler.module.Module):
             workspace.display_data.dimensions = dimensions
 
     def display(self, workspace, figure):
-        figure.set_subplots((1, 2))
+        layout = (1, 2)
 
-        figure.subplot_imshow(0, 0, workspace.display_data.x_data, dimensions=dimensions)
+        figure.set_subplots(layout)
 
-        figure.subplot_imshow(0, 1, workspace.display_data.y_data, dimensions=dimensions)
+        figure.subplot_imshow(
+            colormap="gray",
+            dimensions=workspace.display_data.dimensions,
+            image=workspace.display_data.x_data,
+            x=0,
+            y=0
+        )
 
+        figure.subplot_imshow(
+            colormap="gray",
+            dimensions=workspace.display_data.dimensions,
+            image=workspace.display_data.y_data,
+            x=1,
+            y=0
+        )
