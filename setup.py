@@ -342,7 +342,8 @@ setuptools.setup(
             "pytest",
             "python-bioformats",
             "pyzmq",
-            "scipy"
+            "scipy",
+            "skimage"
         ],
         keywords="",
         license="BSD",
